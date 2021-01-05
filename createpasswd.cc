@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
 
   if (help) usage(0);
 
-  max_passwd_len = std::max(max_passwd_len, min_passwd_len);
+  if (max_passwd_len < min_passwd_len) std::swap(max_passwd_len, min_passwd_len);
 
   for (int j = 0; j < nb_pass; ++j) {
     for (int i = min_passwd_len + arc4random_uniform(max_passwd_len - min_passwd_len); i != 0; --i)
