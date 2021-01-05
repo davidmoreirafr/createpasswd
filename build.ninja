@@ -1,0 +1,38 @@
+# _build: doesn't work cause ./flex and ./bison
+outdir = .
+srcdir = .
+installdir = /home/v45h/.opt/
+cxxflags = -Wall -Wextra -pedantic -std=gnu++11 -Isrc/ -fPIC -g -ggdb
+ldflags =
+
+cpp=eg++
+
+rule cpp
+     depfile = $out.d
+     command = $cpp $cxxflags -MMD -MF $out.d -c $in -o $out
+
+rule lcpp
+     command = $cpp $cxxflgs $ldflags $in -o$out
+
+rule install
+     command = install $in $out
+
+rule i
+     command = :
+
+rule tar
+     command = tar -s '/\(.\)/createpasswd\/\1/' -cjf $out $in
+
+build $outdir/createpasswd.o: cpp $srcdir/createpasswd.cc
+
+build $outdir/createpasswd: lcpp $outdir/createpasswd.o
+
+build $installdir/bin/createpasswd: install $outdir/createpasswd
+build $installdir/share/man/man8/createpasswd.8: install $outdir/createpasswd.8
+
+build install: i $installdir/bin/createpasswd $
+                 $installdir/share/man/man8/createpasswd.8
+
+build $outdir/createpasswd.tar.bz2: tar $outdir/createpasswd.cc $outdir/createpasswd.8 $srcdir/build.ninja
+
+default $outdir/createpasswd

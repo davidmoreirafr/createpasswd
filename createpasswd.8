@@ -1,0 +1,60 @@
+.Dd $Mdocdate: December 12 2015 $
+.Dt CREATEPASSWD 8
+.Os
+.Sh NAME
+.Nm createpasswd
+.Nd create randomly generated password
+.Sh SYNOPSIS
+.Nm
+.Op Fl ehnr
+.Op Fl n Ar number_of_password
+.Op Fl l Ar minimum_password_length
+.Op Fl m Ar maximum_password_length
+.Sh DESCRIPTION
+The
+.Nm
+program create randomly generated and uniform password of displayable
+characters of the ascii table.
+.Nm
+use extensively
+.Fn arc4random
+for the generation of the password.
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl e
+Display the end of the password with the
+.Dq $
+character.
+.It Fl h
+Display the usage of
+.Nm
+and return
+.Dq 0
+as result code.
+.It Fl n Ar number_of_password
+Set the number of password generated.
+Default is
+.Dq 1 .
+.It Fl m Ar maximum_password_length
+Set the maximum password length.  The password could be longer that
+this value if the options
+.Fl r
+is set.
+.It Fl l Ar minimum_password_length
+Set the minimum password length. The
+.Ar password base
+will have a random length between the minimum and the maximum password
+length.
+.It Fl p Ar distribution_parameter
+The parameter for the random length suffix of the password. See
+.Fl r
+option.
+.It Fl r
+Generate a random length suffix to the password generated. The length
+follow geometric distribution and the the
+.Ic p
+parameter could be set with the option
+.Fl p .
+.Sh SEE ALSO
+.Xr arc4random 3 ,
+.Xr arc4random_uniform 3
