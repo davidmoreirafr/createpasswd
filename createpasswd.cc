@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
   max_passwd_len = std::max(max_passwd_len, min_passwd_len);
 
   for (int j = 0; j < nb_pass; ++j) {
-    for (int i = min_passwd_len + arc4random_uniform(max_passwd_len - min_passwd_len); i != 1; --i)
+    for (int i = min_passwd_len + arc4random_uniform(max_passwd_len - min_passwd_len); i != 0; --i)
       std::cout << random_char(number_only, type_generator);
     if (random_len)
       while (arc4random_uniform(distribution_param))
