@@ -1,6 +1,6 @@
 {
   supportedSystems ? ["x86_64-linux"]
-  , supportedCompilers ? ["pkgs.gcc10" "pkgs.gcc9"]
+  , supportedCompilers ? [ "gcc10" "gcc9" ]
 }:
 with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
@@ -15,10 +15,10 @@ let
       pkgs.releaseTools.nixBuild {
         name = "createpasswd";
         src = ./.;
-        buildInputs = [
-          pkgs.ninja
-          my_compiler
-        ];
+        buildInputs = (with pkgs; [
+          ninja
+          gcc9
+        ]);
 
         configurePhase = ''
           ninja -vt clean
@@ -28,8 +28,10 @@ let
         '';
       };
 in {
-  build = pkgs.lib.genAttrs supportedCompilers (my_compiler2:
-    build_function my_compiler2
+  build = pkgs.lib.genAttrs supportedCompilers
+    (my_compiler2:
+      let
+        in
+          build_function
   );
 }
-
