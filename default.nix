@@ -18,7 +18,7 @@ let
         src = ./.;
         buildInputs = (with pkgs; [
           ninja
-          compiler2
+          gcc9
         ]); # comment
 
         configurePhase = ''
