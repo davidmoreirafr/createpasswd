@@ -15,9 +15,9 @@ void usage(int exit_status) {
 
 char random_char(const bool number, const char type_generator) {
   if (number)
-    return (char) ('0' + arc4random_uniform(10));
+    return (char) ('0' + rand() %10);
   if (type_generator == 'a') {
-    int rdn = arc4random_uniform(10 + 26 + 26);
+    int rdn = rand() %(10 + 26 + 26);
     if (rdn < 10)
       return rdn + '0';
     if (rdn - 10 < 26)
@@ -25,12 +25,12 @@ char random_char(const bool number, const char type_generator) {
     return rdn - 10 - 26 + 'A';
   }
   else if (type_generator == 'i') {
-    int rdn = arc4random_uniform(16);
+    int rdn = rand() %(16);
     if (rdn < 10)
       return rdn + '0';
     return rdn - 10 + 'a';
   }
-  return (char) (' ' + arc4random_uniform('~' - ' '));
+  return (char) (' ' + rand() % ('~' - ' '));
 }
 
 int main(int argc, char *argv[]) {
@@ -69,10 +69,10 @@ int main(int argc, char *argv[]) {
   if (max_passwd_len < min_passwd_len) std::swap(max_passwd_len, min_passwd_len);
 
   for (int j = 0; j < nb_pass; ++j) {
-    for (int i = min_passwd_len + arc4random_uniform(max_passwd_len - min_passwd_len); i != 0; --i)
+    for (int i = min_passwd_len + rand() % (max_passwd_len - min_passwd_len); i != 0; --i)
       std::cout << random_char(number_only, type_generator);
     if (random_len)
-      while (arc4random_uniform(distribution_param))
+      while (rand() % (distribution_param))
 	std::cout << random_char(number_only, type_generator);
 
     std::cout << (display_end ? "$" : "") << std::endl;

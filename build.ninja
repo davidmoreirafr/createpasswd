@@ -1,11 +1,11 @@
 # _build: doesn't work cause ./flex and ./bison
 outdir = .
 srcdir = .
-installdir = /home/v45h/.opt/
+installdir = install/
 cxxflags = -Wall -Wextra -pedantic -std=gnu++11 -Isrc/ -fPIC -g -ggdb
 ldflags =
 
-cpp=eg++
+cpp=g++
 
 rule cpp
      depfile = $out.d
