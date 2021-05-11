@@ -1,3 +1,11 @@
+{
+  supportedSystems ? ["x86_64-linux"]
+  , supportedCompilers ? ["gcc10" "gcc9"]
+}:
+with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
+  inherit supportedSystems;
+  #inherit supportedSystems;
+});
 let
   build_function = platform:
     let
@@ -21,9 +29,17 @@ let
         '';
       };
 
-  jobs = {
-    build1 = build_function "x86_64-linux";
-    build2 = build_function "x86_64-darwin";
-  };
-in
-  jobs
+#  jobs = {
+#    build1 = build_function "x86_64-linux";
+#    build2 = build_function "x86_64-darwin";
+#  };
+in {
+  build = pkgs.lib.genAttrs supportedCompilers (compiler:
+    let
+      compiler = compiler;
+    in
+      build_function {
+      }
+  );
+}
+
