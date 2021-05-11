@@ -2,7 +2,7 @@
 outdir = .
 srcdir = .
 installdir = install/
-cxxflags = -Wall -Wextra -Werror -pedantic -std=gnu++11 -Isrc/ -fPIC -g -ggdb
+cxxflags = -Wall -Wextra -Werror -pedantic -std=gnu++11 -Isrc/ -fPIC
 ldflags =
 
 cpp=g++
