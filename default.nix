@@ -29,7 +29,7 @@ let
         name = "createpasswd";
         src = ./.;
         buildInputs = [
-          bash
+          pkgs.bash
           pkgs.ninja
           comp
         ];
