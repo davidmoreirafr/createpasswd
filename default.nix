@@ -23,7 +23,7 @@ let
 
   jobs = {
     build1 = build_function "x86_64-linux";
-    build2 = build_function "x86_64-linux";
+    build2 = build_function "x86_64-darwin";
   };
 in
   jobs
