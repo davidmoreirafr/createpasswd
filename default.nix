@@ -18,7 +18,7 @@ let
         src = ./.;
         buildInputs = (with pkgs; [
           ninja
-          compiler
+          compiler2
         ]); # comment
 
         configurePhase = ''
@@ -36,9 +36,9 @@ let
 in {
   build = pkgs.lib.genAttrs supportedCompilers (compiler:
     let
-      compiler = compiler;
+      compiler2 = compiler;
     in
-      build_function compiler
+      build_function compiler2
   );
 }
 
