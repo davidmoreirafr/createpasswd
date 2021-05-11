@@ -1,25 +1,24 @@
 let
   pkgs = import <nixpkgs> {};
-  jobs = rec {
-    build = { system ? "x86_64.linux" }:
-      let
-        pkgs = import <nixpkgs> {inherit system; };
-      in
-        pkgs.releaseTools.nixBuild {
-          name = "createpasswd";
-          src = ./.;
-          buildInputs = (with pkgs; [
-            ninja
-            gcc
-          ]);
+  jobs = {
+    build = let
+      pkgs = import <nixpkgs> {};
+    in
+      pkgs.releaseTools.nixBuild {
+        name = "createpasswd";
+        src = ./.;
+        buildInputs = (with pkgs; [
+          ninja
+          gcc
+        ]);
 
-          configurePhase = ''
+        configurePhase = ''
           ninja -vt clean
         '';
-          buildPhase = ''
+        buildPhase = ''
           ninja
         '';
-        };
+      };
   };
 in
   jobs
