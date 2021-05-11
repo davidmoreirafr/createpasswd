@@ -1,8 +1,9 @@
 let
-  pkgs = import <nixpkgs> {};
   build_function = platform:
     let
-      pkgs = import <nixpkgs> {};
+      pkgs = import <nixpkgs> {
+        system = platform;
+      };
     in
       pkgs.releaseTools.nixBuild {
         name = "createpasswd";
@@ -21,8 +22,8 @@ let
       };
 
   jobs = {
-    build1 = build_function "toto1";
-    build2 = build_function "toto2";
+    build1 = build_function "x86_64-linux";
+    build2 = build_function "x86_64-linux";
   };
 in
   jobs
