@@ -1,7 +1,7 @@
 let
   pkgs = import <nixpkgs> {};
   jobs = rec {
-    build = { system ? builtins.currentSystem }:
+    build = { system ? "x86_64.linux" }:
       let
         pkgs = import <nixpkgs> {inherit system; };
       in
