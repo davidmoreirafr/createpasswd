@@ -1,6 +1,6 @@
 {
   supportedSystems ? ["x86_64-linux"]
-  , supportedCompilers ? ["gcc10" "pkgs.gcc9"]
+  , supportedCompilers ? ["pkgs.gcc10" "pkgs.gcc9"]
 }:
 with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
