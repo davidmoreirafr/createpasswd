@@ -42,13 +42,7 @@ let
 in {
   build = pkgs.lib.genAttrs supportedSystems (target: 
       pkgs.lib.genAttrs supportedCompilers (comp:
-        (
-          build_function
-            target
-            comp
-        )
+        build_function target (compiler_conversion comp)
       )
   );
 }
-  #(compiler_conversion comp)))
-
