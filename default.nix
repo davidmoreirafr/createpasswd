@@ -1,13 +1,12 @@
 {
   supportedSystems ? ["x86_64-linux"]
-  , supportedCompilers ? ["gcc10" "gcc9"]
+  , supportedCompilers ? ["gcc10" "pkgs.gcc9"]
 }:
 with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
-  #inherit supportedSystems;
 });
 let
-  build_function = platform:
+  build_function = my_compiler:
     let
       pkgs = import <nixpkgs> {
         system = "x86_64-linux";
@@ -16,9 +15,10 @@ let
       pkgs.releaseTools.nixBuild {
         name = "createpasswd";
         src = ./.;
-        buildInputs = (with pkgs; [
-          ninja
-        ]); # comment
+        buildInputs = [
+          pkgs.ninja
+          my_compiler
+        ];
 
         configurePhase = ''
           ninja -vt clean
@@ -27,17 +27,9 @@ let
           ninja -j1      
         '';
       };
-
-#  jobs = {
-#    build1 = build_function "x86_64-linux";
-#    build2 = build_function "x86_64-darwin";
-#  };
 in {
-  build = pkgs.lib.genAttrs supportedCompilers (compiler:
-    let
-
-    in
-      build_function compiler
+  build = pkgs.lib.genAttrs supportedCompilers (my_compiler2:
+    build_function my_compiler2
   );
 }
 
