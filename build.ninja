@@ -1,8 +1,8 @@
 # _build: doesn't work cause ./flex and ./bison
-outdir = _builddir
+outdir = .
 srcdir = .
 installdir = install/
-cxxflags = -Wall -Wextra -pedantic -std=gnu++11 -Isrc/ -fPIC -g -ggdb
+cxxflags = -Wall -Wextra -Werror -pedantic -std=gnu++11 -Isrc/ -fPIC -g -ggdb
 ldflags =
 
 cpp=g++
