@@ -10,7 +10,7 @@ let
   build_function = platform:
     let
       pkgs = import <nixpkgs> {
-        system = platform;
+        system = "x86_64-linux";
       };
     in
       pkgs.releaseTools.nixBuild {
@@ -18,7 +18,6 @@ let
         src = ./.;
         buildInputs = (with pkgs; [
           ninja
-          gcc9
         ]); # comment
 
         configurePhase = ''
@@ -36,9 +35,9 @@ let
 in {
   build = pkgs.lib.genAttrs supportedCompilers (compiler:
     let
-      compiler2 = compiler;
+
     in
-      build_function compiler2
+      build_function compiler
   );
 }
 
