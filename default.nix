@@ -18,7 +18,7 @@ let
         '';
         buildPhase = ''
           ninja -j1
-        ''; 
+        '';
       };
 
   jobs = {
