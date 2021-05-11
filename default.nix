@@ -10,7 +10,7 @@ let
         buildInputs = (with pkgs; [
           ninja
           gcc
-        ]);
+        ]); # comment
 
         configurePhase = ''
           ninja -vt clean
