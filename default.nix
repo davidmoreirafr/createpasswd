@@ -45,7 +45,7 @@ in {
         (
           build_function
             target
-            pkgs.gcc10
+            comp
         )
       )
   );
