@@ -25,7 +25,7 @@ let
           ninja -vt clean
         '';
         buildPhase = ''
-          ninja -j1     
+          ninja -j1      
         '';
       };
 
