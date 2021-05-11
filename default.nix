@@ -15,23 +15,27 @@ let
       pkgs.releaseTools.nixBuild {
         name = "createpasswd";
         src = ./.;
-        buildInputs = (with pkgs; [
-          ninja
-          gcc9
-        ]);
-
+        buildInputs = [pkgs.ninja my_compiler];
+#        buildInputs = (with pkgs; [
+#          "ninja"
+#          gcc9
+#        ]);
+#
         configurePhase = ''
           ninja -vt clean
         '';
         buildPhase = ''
-          ninja -j1      
+          ninja -j1
         '';
       };
 in {
-  build = pkgs.lib.genAttrs supportedCompilers
+  build = pkgs.lib.genAttrs ["gcc10" "gcc9"]
     (my_compiler2:
       let
         in
-          build_function
-  );
+          build_function (
+            if my_compiler2 == "gcc10"
+            then pkgs.gcc10
+            else pkgs.gcc9)
+    );
 }
