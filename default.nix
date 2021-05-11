@@ -18,7 +18,7 @@ let
         src = ./.;
         buildInputs = (with pkgs; [
           ninja
-          gcc
+          compiler
         ]); # comment
 
         configurePhase = ''
@@ -38,8 +38,7 @@ in {
     let
       compiler = compiler;
     in
-      build_function {
-      }
+      build_function compiler
   );
 }
 
