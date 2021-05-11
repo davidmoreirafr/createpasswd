@@ -6,6 +6,11 @@ with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
 });
 let
+  compiler_conversion = comp:
+    (if comp == "gcc10"
+     then pkgs.gcc10
+     else pkgs.gcc9
+    );
   build_function = my_compiler:
     let
       pkgs = import <nixpkgs> {
@@ -30,12 +35,6 @@ let
       };
 in {
   build = pkgs.lib.genAttrs ["gcc10" "gcc9"]
-    (my_compiler2:
-      let
-        in
-          build_function (
-            if my_compiler2 == "gcc10"
-            then pkgs.gcc10
-            else pkgs.gcc9)
+    (comp: build_function (compiler_conversion comp)
     );
 }
