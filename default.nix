@@ -32,13 +32,14 @@ let
         '';
       };
 in {
-  build = pkgs.lib.genAttrs [ "foo" ]
-    (target: 
-      pkgs.lib.genAttrs [ "gcc10" "gcc9" ]
-        (comp:
-          build_function "foo" pkgs.gcc10
-                #(compiler_conversion comp)))
-    )
-
-    );
+  build = pkgs.lib.genAttrs supportedSystems (target: 
+      pkgs.lib.genAttrs supportedCompilers (comp:
+        (
+          build_function
+            target
+            pkgs.gcc10
+        )
+      )
+  );
 }
+  #(compiler_conversion comp)))
