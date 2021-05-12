@@ -1,9 +1,9 @@
 {
-  supportedSystems ? [ "x86_64-linux" "x86_64-darwin" ]
+  supportedSystems2 ? [ "x86_64-linux" "x86_64-darwin" ]
 , supportedCompilers ? [ "gcc10" "gcc9" "gcc8" "gcc7" "gcc6" "gcc49" "gcc48" ]
 }:
 with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
-  inherit supportedSystems;
+  inherit supportedSystems2;
 });
 let
   compiler_conversion = comp:
@@ -56,7 +56,7 @@ let
         '';
       };
 in {
-  build = pkgs.lib.genAttrs supportedSystems (target: 
+  build = pkgs.lib.genAttrs supportedSystems2 (target: 
       pkgs.lib.genAttrs supportedCompilers (comp:
         build_function target (compiler_conversion comp)
       )
