@@ -47,6 +47,8 @@ let
         configurePhase = ''
           ninja -vt clean
           uname -a
+          which g++ ||:
+          which gcc ||:
         '';
         buildPhase = ''
           ninja -j1 -k 100
