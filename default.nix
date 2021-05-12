@@ -42,6 +42,7 @@ let
         src = ./.;
         buildInputs = [
           pkgs.ninja
+          pkgs.which
           comp
         ];
         configurePhase = ''
