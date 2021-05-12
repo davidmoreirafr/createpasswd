@@ -56,7 +56,7 @@ let
         '';
       };
   genCompilers = names: f:
-    (map (n: (f n)) names)
+    listToAttrs (map (n: (f n)) names)
       ;
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
