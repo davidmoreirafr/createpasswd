@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <unistd.h>
-
 #include <iostream>
 
 #define CASE(D, X) case D: X; break
