@@ -55,9 +55,13 @@ let
           ninja -j1 -k 100
         '';
       };
+  genCompilers = names: f:
+    (map (n: (f n)) names)
+      ;
 in {
-  build = pkgs.lib.genAttrs supportedSystems (target: 
-      pkgs.lib.genAttrs supportedCompilers (comp:
+  build = pkgs.lib.genAttrs supportedSystems (target:
+    genCompilers [pkgs.gcc10] (comp:
+      ##pkgs.lib.genAttrs [pkgs.gcc10] (comp:
         build_function target (compiler_conversion comp)
       )
   );
