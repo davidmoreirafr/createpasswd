@@ -35,6 +35,7 @@ let
         ];
         configurePhase = ''
           ninja -vt clean
+          uname -a
         '';
         buildPhase = ''
           ninja -j1 -k 100
