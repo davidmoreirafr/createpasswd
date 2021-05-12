@@ -1,6 +1,6 @@
 {
   supportedSystems ? [ "x86_64-linux" "x86_64-darwin" ]
-, supportedCompilers ? [ "gcc10" "gcc9" "gcc8" "gcc7" ]
+, supportedCompilers ? [ "gcc10" "gcc9" "gcc8" "gcc7" "gcc6" "gcc49" "gcc48" ]
 }:
 with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
@@ -15,8 +15,20 @@ let
       else (
         if comp == "gcc8" then
           pkgs.gcc8
-        else
-          pkgs.gcc7
+        else (
+          if comp == "gcc7" then
+            pkgs.gcc7
+          else (
+            if comp == "gcc6" then
+              pkgs.gcc6
+            else (
+              if comp == "gcc49" then
+                pkgs.gcc49
+              else
+                pkgs.gcc48
+            )
+          )
+        )
       )
     );
   build_function = target: comp:
@@ -29,7 +41,6 @@ let
         name = "createpasswd";
         src = ./.;
         buildInputs = [
-          pkgs.bash
           pkgs.ninja
           comp
         ];
