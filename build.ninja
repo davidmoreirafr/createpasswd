@@ -7,6 +7,8 @@ ldflags =
 
 cpp=g++
 
+rule info
+     command = uname -a | tee $out
 rule cpp
      depfile = $out.d
      command = $cpp $cxxflags -MMD -MF $out.d -c $in -o $out
@@ -34,5 +36,5 @@ build install: i $installdir/bin/createpasswd $
                  $installdir/share/man/man8/createpasswd.8
 
 build $outdir/createpasswd.tar.bz2: tar $outdir/createpasswd.cc $outdir/createpasswd.8 $srcdir/build.ninja
-
+build info: info
 default $outdir/createpasswd
