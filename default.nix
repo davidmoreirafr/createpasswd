@@ -36,7 +36,12 @@ let
           (
             n:
             pkgs.lib.nameValuePair
-              "gcc.${n.majorVersion}"
+              (
+                let
+                  version = builtins.head (builtins.split "\." n.version);
+                in
+                  "gcc.${version}"
+              )
               (f n))
           names);
 
