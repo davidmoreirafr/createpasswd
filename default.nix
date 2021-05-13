@@ -59,8 +59,7 @@ let
         '';
       };
   supportedCompilers = [
-    pkgs.gcc11.name
-    "gcc10"
+    pkgs.gcc10.name
     "gcc9"
     "gcc8"
     "gcc7"
