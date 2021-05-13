@@ -5,35 +5,6 @@ with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
 });
 let
-  compiler_conversion = comp:
-    if comp == "gcc11" then
-      pkgs.gcc11
-    else (
-      if comp == "gcc10" then
-        pkgs.gcc10
-      else (
-        if comp == "gcc9" then
-          pkgs.gcc9
-        else (
-          if comp == "gcc8" then
-            pkgs.gcc8
-          else (
-            if comp == "gcc7" then
-              pkgs.gcc7
-            else (
-              if comp == "gcc6" then
-                pkgs.gcc6
-              else (
-                if comp == "gcc49" then
-                  pkgs.gcc49
-                else
-                  pkgs.gcc48
-              )
-            )
-          )
-        )
-      )
-    );
   build_function = target: comp:
     let
       pkgs = import <nixpkgs> {
@@ -58,19 +29,29 @@ let
           ninja -j1 -k 100
         '';
       };
+  myGenAttrs = names: f:
+    pkgs.lib.listToAttrs
+      (
+        map
+          (
+            n:
+            pkgs.lib.nameValuePair
+              n.name
+              (f n))
+          names);
+
   supportedCompilers = [
-    pkgs.gcc10.name
-    "gcc9"
-    "gcc8"
-    "gcc7"
-    "gcc6"
-    "gcc49"
-    "gcc48"
+    pkgs.gcc10
+    pkgs.gcc9
+    pkgs.gcc8
+    pkgs.gcc7
+    pkgs.gcc6
+    pkgs.gcc49
+    pkgs.gcc48
   ];
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
-    pkgs.lib.genAttrs supportedCompilers (comp:
-      build_function target (compiler_conversion comp)
-    )
-  );
+    myGenAttrs supportedCompilers (comp:
+      build_function target comp.name)
+    );
 }
