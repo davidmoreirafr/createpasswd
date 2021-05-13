@@ -11,7 +11,7 @@ rule info
      command = uname -a | tee $out
 rule cpp
      depfile = $out.d
-     command = echo $cpp $cxxflags -MMD -MF $out.d -c $in -o $out
+     command = touch $out
 
 rule lcpp
      command = $cpp $cxxflgs $ldflags $in -o$out
