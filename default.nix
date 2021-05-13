@@ -14,6 +14,8 @@ let
         src = ./.;
         buildInputs = [
           pkgs.ninja
+          pkgs.which
+          pkgs.file
           compiler
           boost
         ];
@@ -25,6 +27,7 @@ let
         '';
         buildPhase = ''
           g++ createpasswd.cc -o createpasswd.o
+          file $(which g++)
           ninja -j1 -k 100
         '';
       };
