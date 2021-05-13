@@ -39,14 +39,9 @@ let
             pkgs.lib.nameValuePair
               (
                 let
-                  version
-                  =
-                    builtins.concatStringsSep
-                      "_"
-                      (builtins.splitVersion n.version);
-                      #(builtins.split "\\." n.version);
+                  version = "";
                 in
-                  "gcc_${version}"
+                  "gcc_${builtins.concatStringsSep "_" (builtins.splitVersion n.version)}"
               )
               (f n))
           names);
