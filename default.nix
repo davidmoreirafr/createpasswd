@@ -1,8 +1,11 @@
-{ supportedSystems ? [ "x86_64-darwin" ] }:
+{ supportedSystems ? [ "x86_64-darwin" "x86_64-linux" ] }:
+{ stdenv }:
+assert stdenv.isLinux;
 with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
 });
 let
+  
   build_function = target: compiler: boost:
     let
       pkgs = import <nixpkgs> {
