@@ -16,15 +16,13 @@ let
         src = ./.;
         buildInputs = [
           pkgs.ninja
-          pkgs.which
           comp
           boost
         ];
         configurePhase = ''
           ninja -vt clean
           uname -a
-          which g++ ||:
-          which gcc ||:
+          env
         '';
         buildPhase = ''
           ninja -j1 -k 100
@@ -33,8 +31,7 @@ let
   myGenAttrs = basename: names: f:
     pkgs.lib.listToAttrs (map (n:
       pkgs.lib.nameValuePair
-        "${basename}_${builtins.concatStringsSep
-          "_" (builtins.splitVersion n.version)}"
+        "${basename}_${builtins.concatStringsSep "_" (builtins.splitVersion n.version)}"
         (f n))
       names);
 
