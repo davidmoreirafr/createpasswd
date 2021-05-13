@@ -21,6 +21,7 @@ let
         ];
         configurePhase = ''
           uname -a
+          env
           ninja -vt clean
         '';
         buildPhase = ''
