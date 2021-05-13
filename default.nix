@@ -39,7 +39,6 @@ let
       names);
 
   supportedCompilers = [
-    pkgs.gcc11
     pkgs.gcc10
     pkgs.gcc9
     pkgs.gcc8
