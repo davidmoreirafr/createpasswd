@@ -5,7 +5,7 @@ with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
 });
 let
-  build_function = target: comp:
+  build_function = target: comp: boost:
     let
       pkgs = import <nixpkgs> {
         system = target;
@@ -18,6 +18,7 @@ let
           pkgs.ninja
           pkgs.which
           comp
+          boost
         ];
         configurePhase = ''
           ninja -vt clean
@@ -59,9 +60,23 @@ let
     pkgs.gcc49
     pkgs.gcc48
   ];
+  supportedBoost = [
+    boost155
+    boost159
+    boost160
+    boost165
+    boost166
+    boost167
+    boost168
+    boost170
+    boost171
+    boost172
+  ];
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
     myGenAttrs supportedCompilers (comp:
-      build_function target comp)
-    );
+      myGenAttrs supportedBoost (boost:
+        build_function target comp boost)
+    )
+  );
 }
