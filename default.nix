@@ -61,14 +61,16 @@ let
     pkgs.gcc48
   ];
   supportedBoost = [
-    boost160
-    boost165
-    boost166
-    boost167
-    boost168
-    boost170
-    boost171
-    boost172
+    pkgs.boost155
+    pkgs.boost159
+    pkgs.boost160
+    pkgs.boost165
+    pkgs.boost166
+    pkgs.boost167
+    pkgs.boost168
+    pkgs.boost170
+    pkgs.boost171
+    pkgs.boost172
   ];
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
