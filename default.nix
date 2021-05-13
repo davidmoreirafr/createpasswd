@@ -20,9 +20,8 @@ let
           boost
         ];
         configurePhase = ''
-          ninja -vt clean
           uname -a
-          env
+          ninja -vt clean
         '';
         buildPhase = ''
           ninja -j1 -k 100
@@ -45,15 +44,15 @@ let
     pkgs.gcc48
   ];
   supportedBoost = [
-    pkgs.boost155
-    pkgs.boost159
-    pkgs.boost160
-    pkgs.boost165
-    pkgs.boost166
-    pkgs.boost167
-    pkgs.boost168
-    pkgs.boost170
-    pkgs.boost171
+#    pkgs.boost155
+#    pkgs.boost159
+#    pkgs.boost160
+#    pkgs.boost165
+#    pkgs.boost166
+#    pkgs.boost167
+#    pkgs.boost168
+#    pkgs.boost170
+#    pkgs.boost171
     pkgs.boost172
   ];
 in {
