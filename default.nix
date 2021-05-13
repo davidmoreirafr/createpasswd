@@ -38,9 +38,9 @@ let
             pkgs.lib.nameValuePair
               (
                 let
-                  version = builtins.head (builtins.split "\." n.version);
+                  version = builtins.head (builtins.split "\\." n.version);
                 in
-                  "gcc.${version}"
+                  "gcc${version}"
               )
               (f n))
           names);
