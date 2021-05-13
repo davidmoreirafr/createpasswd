@@ -61,7 +61,6 @@ let
     pkgs.gcc48
   ];
   supportedBoost = [
-    boost155
     boost159
     boost160
     boost165
