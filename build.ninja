@@ -14,7 +14,7 @@ rule cpp
      command = touch $out
 
 rule lcpp
-     command = $cpp $cxxflgs $ldflags $in -o$out
+     command = touch $out
 
 rule install
      command = install $in $out
