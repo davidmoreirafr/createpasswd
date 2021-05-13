@@ -50,9 +50,9 @@ let
 #    pkgs.boost165
 #    pkgs.boost166
 #    pkgs.boost167
-#    pkgs.boost168
-#    pkgs.boost170
-#    pkgs.boost171
+    pkgs.boost168
+    pkgs.boost170
+    pkgs.boost171
     pkgs.boost172
   ];
 in {
