@@ -36,7 +36,7 @@ let
           (
             n:
             pkgs.lib.nameValuePair
-              n.name
+              "gcc.{n.version}"
               (f n))
           names);
 
