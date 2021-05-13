@@ -11,10 +11,11 @@ rule info
      command = uname -a | tee $out
 rule cpp
      depfile = $out.d
-     command = touch $out
+     command = $cpp $cxxflags -MMD -MF $out.d -c $in -o $out
 
 rule lcpp
      command = touch $out
+#  $cpp $cxxflgs $ldflags $in -o$out
 
 rule install
      command = install $in $out
