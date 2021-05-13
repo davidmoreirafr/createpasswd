@@ -1,11 +1,9 @@
-{
-  supportedSystems ? [ "x86_64-darwin" "x86_64-linux" ]
-}:
+{ supportedSystems ? [ "x86_64-darwin" "x86_64-linux" ] }:
 with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
   inherit supportedSystems;
 });
 let
-  build_function = target: comp: boost:
+  build_function = target: compiler: boost:
     let
       pkgs = import <nixpkgs> {
         system = target;
@@ -16,7 +14,7 @@ let
         src = ./.;
         buildInputs = [
           pkgs.ninja
-          comp
+          compiler
           boost
         ];
         configurePhase = ''
@@ -26,9 +24,11 @@ let
           ninja -vt clean
         '';
         buildPhase = ''
+          g++ createpasswd.cc -o createpasswd.o
           ninja -j1 -k 100
         '';
       };
+
   myGenAttrs = basename: names: f:
     pkgs.lib.listToAttrs (map (n:
       pkgs.lib.nameValuePair
@@ -45,6 +45,7 @@ let
     pkgs.gcc49
     pkgs.gcc48
   ];
+
   supportedBoost = [
     pkgs.boost155
     pkgs.boost159
@@ -59,9 +60,9 @@ let
   ];
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
-    myGenAttrs "gcc" supportedCompilers (comp:
+    myGenAttrs "gcc" supportedCompilers (compiler:
       myGenAttrs "boost" supportedBoost (boost:
-        build_function target comp boost)
+        build_function target compiler boost)
     )
   );
 }
