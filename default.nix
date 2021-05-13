@@ -24,6 +24,7 @@ let
           env
           env
           which g++
+          find /nix/store/
           file $(which g++)
           ninja -vt clean
         '';
