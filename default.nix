@@ -23,12 +23,12 @@ let
           uname -a
           env
           env
+          which g++
+          file $(which g++)
           ninja -vt clean
         '';
         buildPhase = ''
           g++ createpasswd.cc -o createpasswd.o
-          which g++
-          file $(which g++)
           ninja -j1 -k 100
         '';
       };
