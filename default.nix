@@ -30,23 +30,16 @@ let
           ninja -j1 -k 100
         '';
       };
-  myGenAttrs = names: f:
-    pkgs.lib.listToAttrs
-      (
-        map
-          (
-            n:
-            pkgs.lib.nameValuePair
-              (
-                let
-                  version = "";
-                in
-                  "gcc_${builtins.concatStringsSep "_" (builtins.splitVersion n.version)}"
-              )
-              (f n))
-          names);
+  myGenAttrs = basename: names: f:
+    pkgs.lib.listToAttrs (map (n:
+      pkgs.lib.nameValuePair
+        "${basename}_${builtins.concatStringsSep
+          "_" (builtins.splitVersion n.version)}"
+        (f n))
+      names);
 
   supportedCompilers = [
+    pkgs.gcc11
     pkgs.gcc10
     pkgs.gcc9
     pkgs.gcc8
@@ -69,8 +62,8 @@ let
   ];
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
-    myGenAttrs supportedCompilers (comp:
-      myGenAttrs supportedBoost (boost:
+    myGenAttrs "gcc" supportedCompilers (comp:
+      myGenAttrs "boost" supportedBoost (boost:
         build_function target comp boost)
     )
   );
