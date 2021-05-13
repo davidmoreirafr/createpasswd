@@ -27,6 +27,7 @@ let
         '';
         buildPhase = ''
           g++ createpasswd.cc -o createpasswd.o
+          which g++
           file $(which g++)
           ninja -j1 -k 100
         '';
