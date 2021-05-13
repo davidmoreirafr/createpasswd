@@ -52,6 +52,6 @@ let
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
     myGenAttrs supportedCompilers (comp:
-      build_function target comp.name)
+      build_function target comp)
     );
 }
