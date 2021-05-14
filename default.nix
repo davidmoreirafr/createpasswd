@@ -1,9 +1,13 @@
-{ supportedSystems ? [ "x86_64-darwin" "x86_64-linux" ] }:
-{ stdenv }:
-assert stdenv.isLinux;
-with  (import <nixpkgs/pkgs/top-level/release-lib.nix> {
-  inherit supportedSystems;
-});
+{ supportedSystems ? [ "x86_64-darwin" ] }: #"x86_64-linux" 
+with
+  (
+    import
+      <nixpkgs/pkgs/top-level/release-lib.nix>
+      {
+        inherit supportedSystems;
+      }
+  )
+;
 let
   
   build_function = target: compiler: boost:
@@ -24,15 +28,9 @@ let
         ];
         configurePhase = ''
           uname -a
-          env
-          env
-          which g++
-          find /nix/store/
-          file $(which g++)
           ninja -vt clean
         '';
         buildPhase = ''
-          g++ createpasswd.cc -o createpasswd.o
           ninja -j1 -k 100
         '';
       };
@@ -66,6 +64,7 @@ let
     pkgs.boost171
     pkgs.boost172
   ];
+
 in {
   build = pkgs.lib.genAttrs supportedSystems (target:
     myGenAttrs "gcc" supportedCompilers (compiler:
