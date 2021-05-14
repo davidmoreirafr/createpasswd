@@ -61,7 +61,6 @@ let
     pkgs.boost168
     pkgs.boost170
     pkgs.boost171
-    pkgs.boost172
   ];
 
 in {
