@@ -1,21 +1,19 @@
-# _build: doesn't work cause ./flex and ./bison
-outdir = .
+outdir = _builddir/
 srcdir = .
 installdir = install/
-cxxflags = -Wall -Wextra -Werror -pedantic -std=gnu++11 -Isrc/ -fPIC
+cxxflags = -g -ggdb -Wall -Wextra -Werror -pedantic -std=gnu++11 -Isrc/ -fPIC
 ldflags =
 
 cpp=g++
 
-rule info
-     command = uname -a | tee $out
-rule cpp
-     depfile = $out.d
-     command = $cpp $cxxflags -MMD -MF $out.d -c $in -o $out
-
+#rule info
+#     command = uname -a | tee $out
+#rule cpp
+#     depfile = $out.d
+#     command = $cpp $cxxflags -c $in -o $out
+#
 rule lcpp
-     command = touch $out
-#  $cpp $cxxflgs $ldflags $in -o$out
+     command = $cpp $cxxflags $in -o $out
 
 rule install
      command = install $in $out
@@ -26,16 +24,15 @@ rule i
 rule tar
      command = tar -s '/\(.\)/createpasswd\/\1/' -cjf $out $in
 
-build $outdir/createpasswd.o: cpp $srcdir/createpasswd.cc
+#build $outdir/createpasswd.o: cpp $srcdir/createpasswd.cc
+build $outdir/createpasswd: lcpp $srcdir/createpasswd.cc
 
-build $outdir/createpasswd: lcpp $outdir/createpasswd.o
+#build $installdir/bin/createpasswd: install $outdir/createpasswd
+#build $installdir/share/man/man8/createpasswd.8: install createpasswd.8
 
-build $installdir/bin/createpasswd: install $outdir/createpasswd
-build $installdir/share/man/man8/createpasswd.8: install $outdir/createpasswd.8
+#build install: i $installdir/bin/createpasswd $
+#                 $installdir/share/man/man8/createpasswd.8
 
-build install: i $installdir/bin/createpasswd $
-                 $installdir/share/man/man8/createpasswd.8
-
-build $outdir/createpasswd.tar.bz2: tar $outdir/createpasswd.cc $outdir/createpasswd.8 $srcdir/build.ninja
-build info: info
+#build $outdir/createpasswd.tar.bz2: tar $outdir/createpasswd.cc $outdir/createpasswd.8 $srcdir/build.ninja
+#build info: info
 default $outdir/createpasswd

@@ -67,7 +67,10 @@ int main(int argc, char *argv[]) {
 
   if (max_passwd_len < min_passwd_len) std::swap(max_passwd_len, min_passwd_len);
 
+  std::cout << "nb_pass: " << nb_pass << std::endl;
   for (int j = 0; j < nb_pass; ++j) {
+    std::cout << "min_passwd_len: " << min_passwd_len << std::endl
+	      << "max_passwd_len: " << max_passwd_len << std::endl;
     for (int i = min_passwd_len + rand() % (max_passwd_len - min_passwd_len); i != 0; --i)
       std::cout << random_char(number_only, type_generator);
     if (random_len)
