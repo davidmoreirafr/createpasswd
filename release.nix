@@ -28,6 +28,11 @@ let
         '';
       };
 in {
+  gcc48 = deriv "x86_64-linux" pkgs.gcc48Stdenv;
+  gcc49 =deriv "x86_64-linux" pkgs.gcc49Stdenv;
+  gcc6 =deriv "x86_64-linux" pkgs.gcc6Stdenv;
+  gcc7 = deriv "x86_64-linux" pkgs.gcc7Stdenv;
+  gcc8 = deriv "x86_64-linux" pkgs.gcc8Stdenv;
   gcc9  = deriv "x86_64-linux" pkgs.gcc9Stdenv;
   gcc10 = deriv "x86_64-linux" pkgs.gcc10Stdenv;
   gcc11 = deriv "x86_64-linux" pkgs.gcc11Stdenv;
